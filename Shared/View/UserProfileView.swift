@@ -11,8 +11,9 @@ extension Image {
     func imageModifier() -> some View {
         self
             .resizable()
+            .clipShape(Circle())
+            .aspectRatio(contentMode: .fit)
             .frame(width: 100, height: 100)
-            .cornerRadius(13)
     }
     
     func iconModifier() -> some View {
@@ -62,7 +63,7 @@ struct UserProfileView: View {
     @StateObject var networkManager = NetworkManager()
     @Binding var username: String
     @State var searchedUser: String = ""
-    @State var showFollower: Bool = false
+
     
     var body: some View {
         
@@ -131,7 +132,8 @@ struct UserProfileView: View {
                             }
                             
                             Button( action: {
-                                showFollower = true
+                                sheetManager.whichSheet = .WebGHProfile
+                                sheetManager.showSheet.toggle()
                             }) {
                                 
                                 Text("See Github Profile")
@@ -139,6 +141,15 @@ struct UserProfileView: View {
                                     .background(Color.purple)
                                     .cornerRadius(13)
                             }
+                            .sheet(isPresented: $sheetManager.showSheet, content: {
+                                if(sheetManager.whichSheet == .WebGHProfile) {
+                                    GithubProfileView(url: networkManager.user.htmlURL)
+                                }
+                                
+                                if(sheetManager.whichSheet == .FollowerSheet) {
+                                    FollowerView(searchedUser: $username)
+                                }
+                            })
                         }
                         .padding()
                         .background(Color(.systemGray5))
@@ -181,7 +192,7 @@ struct UserProfileView: View {
                     }
                     .sheet(isPresented: $sheetManager.showSheet, content: {
                         if(sheetManager.whichSheet == .WebGHProfile) {
-                            
+                            GithubProfileView(url: networkManager.user.htmlURL)
                         }
                         
                         if(sheetManager.whichSheet == .FollowerSheet) {

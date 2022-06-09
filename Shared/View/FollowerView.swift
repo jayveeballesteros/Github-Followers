@@ -30,10 +30,7 @@ struct FollowerView: View {
                             AsyncImage(url: URL(string: follower.avatarURL), transaction: Transaction(animation: .spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.25))) { phase in
                                 switch phase {
                                 case .success(let image):
-                                    image
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .cornerRadius(13)
+                                    image.imageModifier()
                                 case .failure(_):
                                     Image(systemName: "ant.circle.fill").iconModifier()
                                 case .empty:
@@ -50,7 +47,7 @@ struct FollowerView: View {
                             }
                         }
                         .padding(10)
-                        .background(Color(.systemGray4))
+                        .background(Color(.systemGray5))
                         .cornerRadius(13)
                     }
                 }
