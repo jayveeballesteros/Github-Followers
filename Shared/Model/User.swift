@@ -13,7 +13,6 @@ struct User: Codable {
     let followingURL, name, location, bio: String
     let twitterUsername: String
     let publicRepos, publicGists, followers, following: Int
-    let createdAt: Date
 
     enum CodingKeys: String, CodingKey {
         case login
@@ -27,6 +26,5 @@ struct User: Codable {
         case publicRepos = "public_repos"
         case publicGists = "public_gists"
         case followers, following
-        case createdAt = "created_at"
     }
 }
