@@ -62,6 +62,7 @@ struct SearchView: View {
                         .foregroundColor(.white)
                         .padding()
                 }
+                .disabled(self.username.isEmpty)
             }
         }
     }

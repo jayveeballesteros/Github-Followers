@@ -78,9 +78,9 @@ struct UserProfileView: View {
                                 image.imageModifier()
                                     .transition(.scale)
                             case .failure(_):
-                                Image(systemName: "ant.circle.fill").iconModifier()
+                                Image(systemName: "person.crop.circle.fill.badge.xmark").iconModifier()
                             case .empty:
-                                Image(systemName: "photo.circle.fill").iconModifier()
+                                Image(systemName: "person.crop.circle.fill").iconModifier()
                             @unknown default:
                                 ProgressView()
                             }

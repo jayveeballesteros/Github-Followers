@@ -25,17 +25,16 @@ struct FollowerView: View {
             
             ScrollView {
                 LazyVGrid(columns: columns) {
-                    ForEach(networkManager.follower, id: \.self) { follower in
+                    ForEach(networkManager.followers, id: \.self) { follower in
                         VStack {
                             AsyncImage(url: URL(string: follower.avatarURL), transaction: Transaction(animation: .spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.25))) { phase in
                                 switch phase {
                                 case .success(let image):
                                     image.imageModifier()
                                 case .failure(_):
-                                    Image(systemName: "ant.circle.fill").iconModifier()
+                                    Image(systemName: "person.crop.circle.fill.badge.xmark").iconModifier()
                                 case .empty:
-                                    Image(systemName: "photo.circle.fill").iconModifier()
-                                    
+                                    Image(systemName: "person.crop.circle.fill").iconModifier()
                                 @unknown default:
                                     ProgressView()
                                 }
@@ -44,18 +43,24 @@ struct FollowerView: View {
                                 Text(follower.login)
                                     .lineLimit(1)
                                     .minimumScaleFactor(0.5)
+                                
                             }
                         }
                         .padding(10)
                         .background(Color(.systemGray5))
                         .cornerRadius(13)
                     }
+                    if networkManager.followersListFull == false {
+                        ProgressView()
+                            .onAppear {
+                                networkManager.fetchFollowers(for: searchedUser)
+                            }
+                    }
                 }
+                
             }
             .padding()
-            .onAppear {
-                networkManager.fetchFollower(searchedUser)
-            }
+            
             .navigationBarTitle(Text("\(searchedUser)'s Followers"), displayMode: .inline)
         }
     }
