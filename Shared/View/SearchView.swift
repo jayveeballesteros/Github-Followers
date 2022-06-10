@@ -52,7 +52,7 @@ struct SearchView: View {
                     showProfile.toggle()
                 }) {
                     
-                    Text("See Profile")
+                    Text("Search Github Profile")
                         .fontWeight(.bold)
                         .font(.title2)
                         .padding()

@@ -117,14 +117,14 @@ struct UserProfileView: View {
                             HStack {
                                 HStack {
                                     Image(systemName: "folder.fill")
-                                    Text("\(networkManager.user.publicRepos) Public Repos")
+                                    Text("**\(networkManager.user.publicRepos)** Public Repos")
                                         .font(.subheadline)
                                 }
                                 .bgModifier()
                                 
                                 HStack {
                                     Image(systemName: "text.justify.left")
-                                    Text("\(networkManager.user.publicGists) Public Gists")
+                                    Text("**\(networkManager.user.publicGists)** Public Gists")
                                         .font(.subheadline)
                                 }
                                 .bgModifier()
@@ -166,14 +166,14 @@ struct UserProfileView: View {
                     HStack {
                         HStack {
                             Image(systemName: "person.3.fill")
-                            Text("\(networkManager.user.followers) Followers")
+                            Text("**\(networkManager.user.followers)** Followers")
                                 .font(.subheadline)
                         }
                         .bgModifier()
                         
                         HStack {
                             Image(systemName: "person.3")
-                            Text("\(networkManager.user.following) Following")
+                            Text("**\(networkManager.user.following)** Following")
                                 .font(.subheadline)
                         }
                         .bgModifier()

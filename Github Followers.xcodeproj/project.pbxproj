@@ -150,6 +150,8 @@
 			dependencies = (
 			);
 			name = "Github Followers (iOS)";
+			packageProductDependencies = (
+			);
 			productName = "Github Followers (iOS)";
 			productReference = 87B7BB222850502D002A3A37 /* Github Followers.app */;
 			productType = "com.apple.product-type.application";
@@ -198,6 +200,8 @@
 				Base,
 			);
 			mainGroup = 87B7BB152850502A002A3A37;
+			packageReferences = (
+			);
 			productRefGroup = 87B7BB232850502D002A3A37 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
