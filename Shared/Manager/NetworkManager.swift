@@ -19,7 +19,7 @@ class NetworkManager: ObservableObject {
     // Tracks last page loaded. Used to load next page (current + 1)
     var currentPage = 0
     // Limit of records per page. (Only if backend supports, it usually does)
-    let perPage = 20
+    let perPage = 50
     
     let baseURL = "https://api.github.com/users/"
     
