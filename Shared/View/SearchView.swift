@@ -52,15 +52,21 @@ struct SearchView: View {
                     showProfile.toggle()
                 }) {
                     
-                    Text("Search Github Profile")
-                        .fontWeight(.bold)
-                        .font(.title2)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.green)
-                        .cornerRadius(13)
-                        .foregroundColor(.white)
-                        .padding()
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                            .font(.title2)
+                            .foregroundColor(.white)
+                        Text("Search Profile")
+                            .fontWeight(.bold)
+                            .font(.title3)
+                            .foregroundColor(.white)
+                        
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.green)
+                    .cornerRadius(13)
+                    .padding()
                 }
                 .disabled(self.username.isEmpty)
             }

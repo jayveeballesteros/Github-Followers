@@ -14,6 +14,7 @@ extension Image {
             .clipShape(Circle())
             .aspectRatio(contentMode: .fit)
             .frame(width: 100, height: 100)
+            .padding(.trailing, 5)
     }
     
     func iconModifier() -> some View {
@@ -86,22 +87,25 @@ struct UserProfileView: View {
                             }
                         }
                         VStack(alignment: .leading) {
-                            Text(networkManager.user.login)
+                            Text(networkManager.user.name)
                                 .font(.title)
                                 .bold()
-                            Text(networkManager.user.name)
-                                .font(.subheadline)
+                            Text(networkManager.user.login)
+                                .font(.headline)
                             HStack {
                                 Image(systemName: "location.circle")
                                     .font(.subheadline)
+                                    .foregroundColor(.secondary)
                                 Text(networkManager.user.location)
                                     .font(.subheadline)
+                                    .foregroundColor(.secondary)
                                 
                             }
                         }
                         Spacer()
                     }
                     Text(networkManager.user.bio)
+                        .font(.subheadline)
                         .foregroundColor(.gray)
                     
                     
@@ -111,7 +115,7 @@ struct UserProfileView: View {
                 
                 
                 VStack {
-                    Spacer()
+//                    Spacer()
                     VStack {
                         VStack {
                             HStack {
@@ -207,6 +211,22 @@ struct UserProfileView: View {
                 .padding()
                 
                 Spacer()
+                
+                Button( action: {}) {
+    
+                    HStack {
+                        Spacer()
+                        Image(systemName: "suit.heart.fill")
+                                .padding()
+                                .font(.title)
+                                .foregroundColor(.white)
+                                .background(Color.green)
+                                .clipShape(Circle())
+                                .padding(.trailing)
+                    }
+                    
+                    
+                }
                 
             }
             .onAppear {

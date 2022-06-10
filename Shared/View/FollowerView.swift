@@ -60,7 +60,6 @@ struct FollowerView: View {
                 
             }
             .padding()
-            
             .navigationBarTitle(Text("\(searchedUser)'s Followers"), displayMode: .inline)
         }
     }
