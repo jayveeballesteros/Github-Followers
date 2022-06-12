@@ -18,6 +18,8 @@ struct FollowerView: View {
     
     @StateObject var networkManager = NetworkManager()
     @Binding var searchedUser: String
+    @State var username: String = ""
+    @State var showProfile: Bool = false
     
     var body: some View {
         
@@ -27,6 +29,9 @@ struct FollowerView: View {
                 LazyVGrid(columns: columns) {
                     ForEach(networkManager.followers, id: \.self) { follower in
                         VStack {
+                            NavigationLink(destination: UserProfileView(username: $username), isActive: $showProfile) {
+                                EmptyView()
+                            }
                             AsyncImage(url: URL(string: follower.avatarURL), transaction: Transaction(animation: .spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.25))) { phase in
                                 switch phase {
                                 case .success(let image):
@@ -49,6 +54,11 @@ struct FollowerView: View {
                         .padding(10)
                         .background(Color(.systemGray5))
                         .cornerRadius(13)
+                        
+                        .onTapGesture {
+                            username = follower.login
+                            showProfile.toggle()
+                        }
                     }
                     if networkManager.followersListFull == false {
                         ProgressView()

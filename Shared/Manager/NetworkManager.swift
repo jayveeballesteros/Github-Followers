@@ -10,7 +10,7 @@ import Combine
 
 class NetworkManager: ObservableObject {
     
-    @Published var user = User(login: "", avatarURL: "", url: "", htmlURL: "", followersURL: "", followingURL: "", name: "", location: "", bio: "", twitterUsername: "", publicRepos: 0, publicGists: 0, followers: 0, following: 0)
+    @Published var user = User(login: "", avatarURL: "", url: "", htmlURL: "", followersURL: "", followingURL: "", name: "", location: "", bio: "", publicRepos: 0, publicGists: 0, followers: 0, following: 0)
     
     @Published var followers = [Follower]()
     

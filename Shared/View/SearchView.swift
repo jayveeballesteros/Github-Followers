@@ -15,7 +15,7 @@ struct SearchView: View {
     var body: some View {
         
         NavigationView {
-                    
+            
             VStack {
                 
                 NavigationLink(destination: UserProfileView(username: $username), isActive: $showProfile) {

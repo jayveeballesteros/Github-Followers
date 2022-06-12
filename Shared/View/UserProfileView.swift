@@ -58,182 +58,181 @@ struct UserProfileView: View {
         @Published var showSheet = false
         @Published var whichSheet: Sheet? = nil
     }
-
+    
     @StateObject var sheetManager = SheetManager()
     
     @StateObject var networkManager = NetworkManager()
     @Binding var username: String
     @State var searchedUser: String = ""
-
+    
     
     var body: some View {
         
         
-            VStack {
-                
-                VStack(alignment: .leading) {
-                    HStack {
-                        AsyncImage(url: URL(string: networkManager.user.avatarURL), transaction: Transaction(animation: .spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.25))) { phase in
-                            switch phase {
-                            case .success(let image):
-                                image.imageModifier()
-                                    .transition(.scale)
-                            case .failure(_):
-                                Image(systemName: "person.crop.circle.fill.badge.xmark").iconModifier()
-                            case .empty:
-                                Image(systemName: "person.crop.circle.fill").iconModifier()
-                            @unknown default:
-                                ProgressView()
-                            }
+        VStack {
+            
+            VStack(alignment: .leading) {
+                HStack {
+                    AsyncImage(url: URL(string: networkManager.user.avatarURL), transaction: Transaction(animation: .spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.25))) { phase in
+                        switch phase {
+                        case .success(let image):
+                            image.imageModifier()
+                                .transition(.scale)
+                        case .failure(_):
+                            Image(systemName: "person.crop.circle.fill.badge.xmark").iconModifier()
+                        case .empty:
+                            Image(systemName: "person.crop.circle.fill").iconModifier()
+                        @unknown default:
+                            ProgressView()
                         }
-                        VStack(alignment: .leading) {
-                            Text(networkManager.user.name)
-                                .font(.title)
-                                .bold()
-                            Text(networkManager.user.login)
-                                .font(.headline)
-                            HStack {
-                                Image(systemName: "location.circle")
-                                    .font(.subheadline)
-                                    .foregroundColor(.secondary)
-                                Text(networkManager.user.location)
-                                    .font(.subheadline)
-                                    .foregroundColor(.secondary)
-                                
-                            }
-                        }
-                        Spacer()
                     }
-                    Text(networkManager.user.bio)
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                    
-                    
+                    VStack(alignment: .leading) {
+                        Text(networkManager.user.name ?? "")
+                            .font(.title)
+                            .bold()
+                        Text(networkManager.user.login)
+                            .font(.headline)
+                        HStack {
+                            Image(systemName: "location.circle")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                            Text(networkManager.user.location ?? "")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                            
+                        }
+                    }
+                    Spacer()
                 }
-                .padding()
-                .padding(.leading)
+                Text(networkManager.user.bio ?? "")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
                 
                 
+            }
+            .padding()
+            .padding(.leading)
+            
+            
+            VStack {
+                //                    Spacer()
                 VStack {
-//                    Spacer()
                     VStack {
-                        VStack {
+                        HStack {
                             HStack {
-                                HStack {
-                                    Image(systemName: "folder.fill")
-                                    Text("**\(networkManager.user.publicRepos)** Public Repos")
-                                        .font(.subheadline)
-                                }
-                                .bgModifier()
-                                
-                                HStack {
-                                    Image(systemName: "text.justify.left")
-                                    Text("**\(networkManager.user.publicGists)** Public Gists")
-                                        .font(.subheadline)
-                                }
-                                .bgModifier()
-                                
+                                Image(systemName: "folder.fill")
+                                Text("**\(networkManager.user.publicRepos)** Public Repos")
+                                    .font(.subheadline)
+                            }
+                            .bgModifier()
+                            
+                            HStack {
+                                Image(systemName: "text.justify.left")
+                                Text("**\(networkManager.user.publicGists)** Public Gists")
+                                    .font(.subheadline)
+                            }
+                            .bgModifier()
+                            
+                        }
+                        
+                        Button( action: {
+                            sheetManager.whichSheet = .WebGHProfile
+                            sheetManager.showSheet.toggle()
+                        }) {
+                            
+                            Text("See Github Profile")
+                                .buttonModifier()
+                                .background(Color.purple)
+                                .cornerRadius(13)
+                        }
+                        .sheet(isPresented: $sheetManager.showSheet, content: {
+                            if(sheetManager.whichSheet == .WebGHProfile) {
+                                GithubProfileView(url: networkManager.user.htmlURL)
                             }
                             
-                            Button( action: {
-                                sheetManager.whichSheet = .WebGHProfile
-                                sheetManager.showSheet.toggle()
-                            }) {
-                                
-                                Text("See Github Profile")
-                                    .buttonModifier()
-                                    .background(Color.purple)
-                                    .cornerRadius(13)
+                            if(sheetManager.whichSheet == .FollowerSheet) {
+                                FollowerView(searchedUser: $username)
                             }
-                            .sheet(isPresented: $sheetManager.showSheet, content: {
-                                if(sheetManager.whichSheet == .WebGHProfile) {
-                                    GithubProfileView(url: networkManager.user.htmlURL)
-                                }
-                                
-                                if(sheetManager.whichSheet == .FollowerSheet) {
-                                    FollowerView(searchedUser: $username)
-                                }
-                            })
-                        }
-                        .padding()
-                        .background(Color(.systemGray5))
+                        })
+                    }
+                    .padding()
+                    .background(Color(.systemGray5))
+                    .cornerRadius(13)
+                    .padding()
+                    
+                    
+                }
+            }
+            
+            
+            
+            VStack {
+                HStack {
+                    HStack {
+                        Image(systemName: "person.3.fill")
+                        Text("**\(networkManager.user.followers)** Followers")
+                            .font(.subheadline)
+                    }
+                    .bgModifier()
+                    
+                    HStack {
+                        Image(systemName: "person.3")
+                        Text("**\(networkManager.user.following)** Following")
+                            .font(.subheadline)
+                    }
+                    .bgModifier()
+                    
+                }
+                
+                Button( action: {
+                    sheetManager.whichSheet = .FollowerSheet
+                    sheetManager.showSheet.toggle()
+                }) {
+                    
+                    Text("See Followers")
+                        .buttonModifier()
+                        .background(Color.green)
                         .cornerRadius(13)
+                }
+                .sheet(isPresented: $sheetManager.showSheet, content: {
+                    if(sheetManager.whichSheet == .WebGHProfile) {
+                        GithubProfileView(url: networkManager.user.htmlURL)
+                    }
+                    
+                    if(sheetManager.whichSheet == .FollowerSheet) {
+                        FollowerView(searchedUser: $username)
+                    }
+                })
+            }
+            
+            .padding()
+            .background(Color(.systemGray5))
+            .cornerRadius(13)
+            .padding()
+            
+            Spacer()
+            
+            Button( action: {}) {
+                
+                HStack {
+                    Spacer()
+                    Image(systemName: "suit.heart.fill")
                         .padding()
-                        
-                        
-                    }
+                        .font(.title)
+                        .foregroundColor(.white)
+                        .background(Color.green)
+                        .clipShape(Circle())
+                        .padding(.trailing)
                 }
                 
-                
-                
-                VStack {
-                    HStack {
-                        HStack {
-                            Image(systemName: "person.3.fill")
-                            Text("**\(networkManager.user.followers)** Followers")
-                                .font(.subheadline)
-                        }
-                        .bgModifier()
-                        
-                        HStack {
-                            Image(systemName: "person.3")
-                            Text("**\(networkManager.user.following)** Following")
-                                .font(.subheadline)
-                        }
-                        .bgModifier()
-                        
-                    }
-                    
-                    Button( action: {
-                        sheetManager.whichSheet = .FollowerSheet
-                        sheetManager.showSheet.toggle()
-                    }) {
-                        
-                        Text("See Followers")
-                            .buttonModifier()
-                            .background(Color.green)
-                            .cornerRadius(13)
-                    }
-                    .sheet(isPresented: $sheetManager.showSheet, content: {
-                        if(sheetManager.whichSheet == .WebGHProfile) {
-                            GithubProfileView(url: networkManager.user.htmlURL)
-                        }
-                        
-                        if(sheetManager.whichSheet == .FollowerSheet) {
-                            FollowerView(searchedUser: $username)
-                        }
-                    })
-                }
-                
-                .padding()
-                .background(Color(.systemGray5))
-                .cornerRadius(13)
-                .padding()
-                
-                Spacer()
-                
-                Button( action: {}) {
-    
-                    HStack {
-                        Spacer()
-                        Image(systemName: "suit.heart.fill")
-                                .padding()
-                                .font(.title)
-                                .foregroundColor(.white)
-                                .background(Color.green)
-                                .clipShape(Circle())
-                                .padding(.trailing)
-                    }
-                    
-                    
-                }
                 
             }
-            .onAppear {
-                self.networkManager.fetchUser(username)
-            }
+            
         }
-    
+        .onAppear {
+            self.networkManager.fetchUser(username)
+        }
+    }
 }
 
 struct UserProfileView_Previews: PreviewProvider {
