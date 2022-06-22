@@ -12,6 +12,7 @@
 An application to retrieve followers of GitHub user without using any 3rd party libraries.
 
 ### 🏙 Screenshots
+[<img src="screenshot.png" width="720"/>]
 
 #### App Demo
 
