@@ -27,7 +27,7 @@ An application to retrieve followers of GitHub user without using any 3rd party 
 
 ### 👨🏻‍⚖️ Disclaimer
 
-> This is inspired by Sean Allen's take home interview course. I didn't followed his course. I just looked through his project wireframe and see if I can recreate it myself using SwiftUI. 
+> This is inspired by Sean Allen's take home interview course. I didn't followed his course yet. I just looked through his project mockup and test to see if I can recreate it myself using SwiftUI. 
 > This is posted as a way to share SwiftUI learnings and to have some reference for when I need the feature.
 
 
