@@ -25,6 +25,14 @@ An application to retrieve followers of GitHub user without using any 3rd party 
 - Github API
 - Passing data to views
 
+### ☑️ To Do
+
+- Add user to favorites.
+- Create search tab and favorites tab.
+- Handle error messages.
+- Cache image.
+- Refactor to MVVM.
+
 ### 👨🏻‍⚖️ Disclaimer
 
 > This is inspired by Sean Allen's take home interview course. I didn't followed his course yet. I just looked through his project mockup and test to see if I can recreate it myself using SwiftUI. 
